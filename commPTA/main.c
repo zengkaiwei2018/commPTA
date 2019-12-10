@@ -1,37 +1,35 @@
-#include<stdio.h>
-#include<malloc.h>
-typedef struct node
-{
-    int data;
-    struct node *next;
-}LinkListNode;
+#include <stdio.h>
+#include <stdlib.h>
+
+typedef char ElementType;
+typedef struct TNode *Position;
+typedef Position BinTree;
+struct TNode{
+    ElementType Data;
+    BinTree Left;
+    BinTree Right;
+};
+
+BinTree CreatBinTree(); /* 实现细节忽略 */
+int GetHeight( BinTree BT );
+
 int main()
 {
-    int n,i;
-    scanf("%d",&n);
-    LinkListNode *head,*p,*node;
-    if(n == 0)
+    BinTree BT = CreatBinTree();
+    printf("%d\n", GetHeight(BT));
+    return 0;
+}
+int GetHeight( BinTree BT )
+{
+    int HL,HR;
+    if(BT != NULL)
     {
-        return 0;
+        HL=GetHeight(BT->Left);
+        HR=GetHeight(BT->Right);
+        if(HL>=HR)
+            return HL+1;
+        else
+            return HR+1;
     }
-    node = (LinkListNode*)malloc(sizeof(LinkListNode));
-    scanf("%d",&(node->data));
-    node->next = NULL;
-    p = head = node;
-    for(i = 0;i<n-1;i++)
-    {
-        node = (LinkListNode*)malloc(sizeof(LinkListNode));
-        scanf("%d",&(node->data));
-        p->next = node;
-        p = node;
-    }
-    p = head;
-    for(i = 0;i<n-1;i++)
-    {
-        printf("%d ",p->data);
-        p = p->next;
-    }
-    printf("%d",p->data);
-    
     return 0;
 }
