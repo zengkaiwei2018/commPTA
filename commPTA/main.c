@@ -11,25 +11,25 @@ struct TNode{
 };
 
 BinTree CreatBinTree(); /* 实现细节忽略 */
-int GetHeight( BinTree BT );
+void PreorderPrintLeaves( BinTree BT );
 
 int main()
 {
     BinTree BT = CreatBinTree();
-    printf("%d\n", GetHeight(BT));
+    printf("Leaf nodes are:");
+    PreorderPrintLeaves(BT);
+    printf("\n");
+    
     return 0;
 }
-int GetHeight( BinTree BT )
+void PreorderPrintLeaves( BinTree BT )
 {
-    int HL,HR;
-    if(BT != NULL)
-    {
-        HL=GetHeight(BT->Left);
-        HR=GetHeight(BT->Right);
-        if(HL>=HR)
-            return HL+1;
-        else
-            return HR+1;
+    if(BT == NULL){
+        return;
     }
-    return 0;
+    if(BT->Left == NULL && BT->Right == NULL){
+        printf(" %c",BT->Data);
+    }
+    PreorderPrintLeaves(BT->Left);
+    PreorderPrintLeaves(BT->Right);
 }
